@@ -1,0 +1,41 @@
+BRIDGING TABLES
+-------------------------------------------------------------------------------------------------------------------
+The first new concept that I learned was bridging tables by using an intermediary table.
+SELECT
+    actor.first_name AS actor_first_name,
+    actor.last_name AS actor_last_name,
+    film.title AS film_title
+FROM actor
+    INNER JOIN film_actor
+        ON actor.actor_id = film_actor.actor_id
+    INNER JOIN film
+        ON film_actor.film_id = film.film_id
+ORDER BY title, last_name;
+
+This example shows how the ACTOR table is what I will consider our "base table". The FILM_ACTOR table is our intermediary table. This table will be our bridge as it has columns that are related to the base table and our end table. The FILM table is our end table and therefore we use the FILM_ACTOR columns to make a passthrough from ACTOR to FILM and therfore get the information we desire.
+
+
+Multi-Condition Joins
+---------------------------------------------------------------------------------------------------------------------
+This concept adds the bridging tables, but also allows for WHERE conditions to be added to the JOIN condition and therefore allows you to narrow down the information from within the JOIN.
+
+SELECT DISTINCT 
+    film.title,
+    film.description
+FROM film
+INNER JOIN inventory 
+    ON film.film_id = inventory.inventory_id
+INNER JOIN rental 
+    ON inventory.inventory_id = rental.inventory_id AND
+    store_id = 2;
+
+This answer is correct however, there is a store_id column in the inventory table that I did not see so I could actually get rid of the second INNER JOIN.
+
+SELECT DISTINCT 
+    film.title,
+    film.description
+FROM film
+INNER JOIN inventory 
+    ON film.film_id = inventory.inventory_id AND 
+    store_id = 2;
+(FULL Correct Answer)

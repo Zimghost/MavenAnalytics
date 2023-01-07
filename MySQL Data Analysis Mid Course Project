@@ -44,18 +44,50 @@ each store and then provide a count of the unique categories of films you provid
 SELECT 
     COUNT(DISTINCT title) AS Titles,
     COUNT(DISTINCT rating) AS Ratings
-FROM film;
+FROM film;     
+(WRONG ANSWER)
+-----------------------------------------------------------------------------------------------------
+SELECT 
+  store_id,
+  COUNT(DISTINCT film_id) AS unique_films
+FROM inventory
+GROUP BY store_id;
+
+SELECT 
+    COUNT(DISTINCT name) AS unique_categories
+FROM category;
+(CORRECT ANSWER)
 
 6. We would like to understand the replacement cost of your films. Please provide the replacement cost for the
 film that is least expensive to replace, the most expensive to replace, and the average of all films you carry.
 
 SELECT 
-    MIN(replacement_cost) AS lowest_replacement_cost,
-    MAX(replacement_cost) AS highest_replacement_cost,
+    MIN(replacement_cost) AS Lowest_replacement_cost,
+    MAX(replacement_cost) AS Highest_replacement_cost,
     AVG(replacement_cost) AS Average_replacement_cost
 FROM film;
 
-7. W are interested in having you put payment monitoring systems and maximum payment processing
+7. We are interested in having you put payment monitoring systems and maximum payment processing
 restrictions in place in order to minimize the future risk of fraud by your staff. Please provide the average
 payment you process, as well as the maximum payment you have processed. 
+
+SELECT
+    AVG(amount) AS average_payment,
+    MAX(amount) AS highest_payment
+FROM payment;
+
+8. We would like to better understand what your customer base looks like. Please provide a list of all customer
+identification values, with a count of rentals they have made all-time, with your highest volume customers at
+the top of the list. 
+
+SELECT 
+    customer_id,
+    COUNT(rental_id) AS Total_Rented
+FROM rental
+GROUP BY customer_id
+ORDER BY COUNT(rental_id) DESC;
+
+
+
+
  

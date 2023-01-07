@@ -1,0 +1,20 @@
+My partner and I want to come by each of the stores in person and meet the managers. Please send over
+the managers’ names at each store, with the full address of each property (street address, district, city, and
+country please).
+
+SELECT 
+    staff.store_id,
+    staff.first_name AS Manager_First_Name,
+    staff.last_name AS Manager_Last_Name,
+    address.address,
+    address.district,
+    city.city,
+    country.country
+FROM staff
+    INNER JOIN address
+    ON staff.address_id = address.address_id
+    INNER JOIN city 
+    ON address.city_id = city.city_id
+    INNER JOIN country
+    ON city.country_id = country.country_id 
+WHERE staff_id IN (1,2);

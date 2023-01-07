@@ -39,3 +39,21 @@ INNER JOIN inventory
     ON film.film_id = inventory.inventory_id AND 
     store_id = 2;
 (FULL Correct Answer)
+
+Creating New Columns
+------------------------------------------------------------------------------------------------------------------
+The one specific part I want to comment on is the adding the string staff as the type. It will allow me to 
+categorize without having to actually make an entire new column in the table. IT mimics a table named type with the 
+different SELECT statments determining the types.
+
+SELECT
+    'staff' AS type,
+    first_name,
+    last_name
+FROM staff
+UNION
+SELECT
+    'advisor' AS type,
+    first_name,
+    last_name
+FROM advisor;

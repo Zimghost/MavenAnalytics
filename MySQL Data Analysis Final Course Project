@@ -126,4 +126,8 @@ SELECT
     investor.company_name 
 FROM investor;
 
-8.
+8. We're interested in how well you have covered the most-awarded actors. Of all the actors with three types of
+awards, for what % of them do we carry a film? And how about for actors with two types of awards? Same
+questions. Finally, how about actors with just one award? 
+
+My weakest part of SQL are these Case statements. I got frustrated and looked at the answer however, my thought process went like this. I would need to create a Case statement in order to take each situation of winning awards and assign them either a number or a statement. So for example WHEN they win all three THEN the string 'Won 3' is returned. And then for the winners of two awards I would have to account for all the combination of two awards they can win which are (Emmy,Tony) (Oscar,Tony) (Emmy, Tony) and THEN the output would be 'Won 2'. All ELSE would have an ouput of THEN 'Won 1'. This would be my classification. Then we would need the average of those 

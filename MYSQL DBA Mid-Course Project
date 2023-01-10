@@ -1,0 +1,50 @@
+1. Take a look at the mavenmoviesmini schema. What do you notice about it? How many tables are there?
+What does the data represent? What do you think the current schema? 
+
+The mavenmoviesmini schema is not normalized. There is much redundancy, it only contains one table, which the data could be seperated into many tables. The data shows film information, store information, and inventory information. The current schema is not efficient, highly redundant, and could use some normalization.
+
+2. If you wanted to break out the data from the inventory_non_normalized table into multiple tables, how
+many tables do you think would be ideal? What would you name those tables?
+
+Three tables would be ideal. One for inventory, one for film, one for store data as well.
+
+3. Based on your answer from question #2, create a new schema with the tables you think will best serve this
+data set. You can use SQL code or Workbench’s UI tools (whichever you feel more comfortable with).
+
+Table 1 for all inventory data. The film_id and store_id will be foreign keys to their respective tables.
+CREATE TABLE Inventory (
+SELECT 
+	inventory_id,
+    film_id,
+    store_id
+FROM inventory_non_normalized
+ORDER BY inventory_id
+);
+
+Table 2 has all film information. Film_id is the primary key and is a foreign key in a different table.
+CREATE TABLE Film (
+SELECT DISTINCT
+    film_id,
+    title,
+    description,
+    release_year,
+    rental_rate,
+    rating
+FROM inventory_non_normalized
+ORDER BY film_id
+);
+
+Table 3 has all the store information. Store_id is the primary and is a foreign key in a different table.
+CREATE TABLE Store (
+SELECT DISTINCT
+    store_id,
+    store_manager_first_name,
+    store_manager_last_name,
+    store_address,
+    store_city,
+    store_district
+FROM inventory_non_normalized
+ORDER BY store_id
+);
+
+6. What I did was take the data you already had and created three new tables to prevent duplication and repetition. IT also organizes the data more efficiently and therefore you can find things faster. The table named film has all things to do with film information, the store table has all the information from managers and store location, and the inventory information contains all of the inventory items. It has ids for which store that item is located in and the id of the film that could be found in the film table. 

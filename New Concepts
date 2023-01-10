@@ -61,3 +61,19 @@ FROM advisor;
 TRUNCATE
 ------------------------------------------------------------------------------------------------------------------
 This is a command that allows you to remove all the data from the table while leaving the table headers and structure. Basically clearing out a table. The main difference between DROP and TRUNCATE is that drop erases the entire table plus the headers. Also, after drop if you have autocommit off you can rollback that statement. With truncate you can not roll it back. 
+
+CREATING NEW TABLES FROM ALREADY EXISTING TABLES
+------------------------------------------------------------------------------------------------------------------
+CREATE TABLE Film (
+SELECT DISTINCT
+    film_id,
+    title,
+    description,
+    release_year,
+    rental_rate,
+    rating
+FROM inventory_non_normalized
+ORDER BY film_id
+);
+
+Using a select statement from an already made table. You can create another table, this is good when trying to normalize a database or splitting the data from one massive table into smaller tables. 

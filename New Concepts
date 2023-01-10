@@ -57,3 +57,7 @@ SELECT
     first_name,
     last_name
 FROM advisor;
+
+TRUNCATE
+------------------------------------------------------------------------------------------------------------------
+This is a command that allows you to remove all the data from the table while leaving the table headers and structure. Basically clearing out a table. The main difference between DROP and TRUNCATE is that drop erases the entire table plus the headers. Also, after drop if you have autocommit off you can rollback that statement. With truncate you can not roll it back. 

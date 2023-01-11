@@ -95,3 +95,19 @@ CALL sp_staffOrdersServed();
 DROP PROCEDURE IF EXISTS sp_staffOrdersServed();
 
 Stored procedures allows for basically a certain query to be run within one line with a CALL statement. This is utilized for long complicated queries that are used consistently within a work environment or allows an invidividual who is not SQL savvy to be able to use certain queries without having to fully understand or need that certain information. You change the delimiter in order to use the semicolon within the statement without it being recognized as a query. Then you create the procedure and specify what the query is within a BEGIN and END statement. Then change the delimiter back. Now the query can be ran with a CALL statement. 
+
+TRIGGERS 
+---------------------------------------------------------------------------------------------------------------------
+Triggers are used to keep tables in sync. If one table gets updated another table can insert, update, or delete a value from other tables. This allows for automation and prevents you from having to update each individual table with information if what is being inserted or updated correlates. 
+
+CREATE TRIGGER COUpdateOrdersServed
+AFTER INSERT ON customer_orders
+FOR EACH ROW
+	UPDATE staff
+		SET orders_served = orders_served + 1
+	WHERE staff_id = NEW.staff_id;
+DELIMITER ;
+
+CALL sp_staffOrdersServed();
+
+DROP TRIGGER IF EXISTS COUpdateOrdersServed;

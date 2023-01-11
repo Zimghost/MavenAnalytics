@@ -1,0 +1,124 @@
+1. Bubs wants you to track information on his customers (first name, last name, email), his employees (first
+name, last name, start date, position held), his products, and the purchases customers make (which customer,
+when it was purchased, for how much money). Think about how many tables you should create. Which data
+goes in which tables? How should the tables relate to one another?
+
+Four tables
+
+One with customer information.
+One with employee information.
+One with product information and how much is in stock.
+One for customer purchases. 
+
+Contents of Tables
+It is good practice to establish a Primary key that provides an id for each table.
+Customer information - (PRIMARY KEY customer id,first name, last name, email)
+Employee information - (PRIMARY KEY employee id, first name, last name, start date, position held)
+Product information - (PRIMARY KEY prodcut_id, product_name, in_stock)
+Customer Purchases information - (PRIMARY KEY purchase id, FOREIGN KEY employee id, FOREIGN KEY product id, FOREIGN KEY which customer, when it was purchased, for how much money)
+
+3. Create a schema called bubsbooties. Within that schema, create the tables that you have diagramed out. Make
+sure they relate to each other, and that they have the same reasonable data types you selected previously.
+
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `bubsbooties` DEFAULT CHARACTER SET utf8 ;
+USE `bubsbooties` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Customers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bubsbooties`.`Customers` (
+  `customer_id` BIGINT NOT NULL,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`customer_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Employees`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bubsbooties`.`Employees` (
+  `employee_id` BIGINT NOT NULL,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `start_date` DATE NOT NULL,
+  `position` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`employee_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Products`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bubsbooties`.`Products` (
+  `product_id` BIGINT NOT NULL,
+  `product_name` VARCHAR(100) NOT NULL,
+  `in_stock` INT NOT NULL,
+  PRIMARY KEY (`product_id`),
+  UNIQUE INDEX `product_name_UNIQUE` (`product_name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`customer_purchases`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bubsbooties`.`customer_purchases` (
+  `purchase_id` BIGINT NOT NULL,
+  `employee_id` BIGINT NOT NULL,
+  `customer_id` BIGINT NOT NULL,
+  `product_id` BIGINT NOT NULL,
+  `purchase_date` DATETIME NOT NULL,
+  `purchase_amount` DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (`purchase_id`),
+  INDEX `FK_customerid_customerpurchases_idx` (`customer_id` ASC) VISIBLE,
+  INDEX `FK_productid_customerpurchases_idx` (`product_id` ASC) VISIBLE,
+  INDEX `FK_employeeid_customerpurchases_idx` (`employee_id` ASC) VISIBLE,
+  CONSTRAINT `FK_customerid_customerpurchases`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `bubsbooties`.`Customers` (`customer_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_productid_customerpurchases`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `bubsbooties`.`Products` (`product_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_employeeid_customerpurchases`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `bubsbooties`.`Employees` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+I used the forward engineering to take my EER diagram that I created and make it into a physical schema instead of remaking the table and writing the code myself.
+
+4. Add any constraints you think your tables’ columns should have. Think through which columns need to be
+unique, which ones are allowed to have NULL values, etc.
+
+Customers - (PRIMARY KEY customer_id, NON NULL customer_id, first_name, last_name, email)
+Employees - (PRIMARY KEY employee_id, NON NULL employee_id, first_name, last_name, start_date, posititon)
+Products - (PRIMARY KEY product_id, NON NULL product_id, product_name, in_stock, UNIQUE product_name)
+Customer_purchases - (PRIMARY KEY purchase_id, FOREIGN KEY employee_id, customer_id, product_id, NON NULL purchase_id, employee_id, customer_id, product_id, purchase_date, purchase_amount)
+
+5. Insert at least 3 records of data into each table. The exact values do not matter, so feel free to make them
+up. Just make sure that the data you insert makes sense, and that the tables tie together. 
+

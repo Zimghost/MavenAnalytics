@@ -106,7 +106,5 @@ FOR EACH ROW
 	UPDATE staff
 		SET orders_served = orders_served + 1
 	WHERE staff_id = NEW.staff_id;
-
-CALL sp_staffOrdersServed();
-
+	
 DROP TRIGGER IF EXISTS COUpdateOrdersServed;

@@ -77,3 +77,21 @@ ORDER BY film_id
 );
 
 Using a select statement from an already made table. You can create another table, this is good when trying to normalize a database or splitting the data from one massive table into smaller tables. 
+
+STORED PROCEDURES 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE sp_staffOrdersServed()
+BEGIN
+SELECT SUM(orders_served) AS Total_Orders_Served
+FROM staff;
+END //
+
+DELIMITER ;
+
+CALL sp_staffOrdersServed();
+
+DROP PROCEDURE IF EXISTS sp_staffOrdersServed();
+
+Stored procedures allows for basically a certain query to be run within one line with a CALL statement. This is utilized for long complicated queries that are used consistently within a work environment or allows an invidividual who is not SQL savvy to be able to use certain queries without having to fully understand or need that certain information. You change the delimiter in order to use the semicolon within the statement without it being recognized as a query. Then you create the procedure and specify what the query is within a BEGIN and END statement. Then change the delimiter back. Now the query can be ran with a CALL statement. 

@@ -1,0 +1,8 @@
+1) Import Q2 order_item and refund data into the database using the following files
+
+  This is done by simply using the table data import wizard. If a table was not created for the data, one would need to be created or if the script/file had that sql statements to create the table then all you would need to do is run the script. However, this is just importing data into tables so therefore you would just to make sure the columns match up and that the data types match up.
+ 
+2) Next, your help is needed updating the structure of the order_items table. 
+The company is going to start cross-selling products, and will want to track 
+whether each item sold is the primary item (the first one put into the user’s shopping cart) 
+or a cross-sold item. Add a binary column to order_items called is_primary_item. 

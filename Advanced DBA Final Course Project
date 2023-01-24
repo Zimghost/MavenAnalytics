@@ -210,7 +210,7 @@ SELECT
 FROM website_sessions
 GROUP BY 1,2;
 
-I also created a new user that limited the role to just being able to show view and sel;ect for the mavenbearbuilders database.
+I also created a new user that limited the role to just being able to show view and select for the mavenbearbuilders database.
 
 8. Top data security threats are SQL injections, weak autherization, buffers, ransomware, denial of service attacks, and privilege escalation. All of these allow hackers to either access confidential backend information, personal information, or cause problems accessing the data which can prevent productivity and efficiency while working. Ways to stop these are encrypting information, giving the least amount of access needed to perform a job, making sure passwords are strong and have a variety of characters while making them reset them after a certain period of time (90-120 days).
 	
@@ -221,5 +221,7 @@ I also created a new user that limited the role to just being able to show view 
 3-5. I should have placed a table for the actual chat messages which I was thinking about but did not think there would need to be a table for. However, logging the messages in chats would be important if you need to go back and reference a message log in the future.
 
 6. For the procedure I forgot to put an IN statement to specify the specific chat rep id therefore it would return the handled chats for that specific rep given a certain time frame. Right now it would pull up the information for every chat rep and the count of support chats they handled.
+
+7. They do not need select privileges I would think they would need the privilege in order to actually put in the select statment howver just giving them SHOW VIEW would give them what they need and nothing more.
 
 

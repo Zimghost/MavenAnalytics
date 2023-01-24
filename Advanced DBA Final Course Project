@@ -216,6 +216,10 @@ I also created a new user that limited the role to just being able to show view 
 	
 
 
+*Corrections*
 
+3-5. I should have placed a table for the actual chat messages which I was thinking about but did not think there would need to be a table for. However, logging the messages in chats would be important if you need to go back and reference a message log in the future.
+
+6. For the procedure I forgot to put an IN statement to specify the specific chat rep id therefore it would return the handled chats for that specific rep given a certain time frame. Right now it would pull up the information for every chat rep and the count of support chats they handled.
 
 

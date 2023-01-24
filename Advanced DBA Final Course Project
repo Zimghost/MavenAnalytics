@@ -163,6 +163,29 @@ ADD CONSTRAINT `FK_order_number_orders`
   REFERENCES `mavenbearbuilders`.`orders` (`order_id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+6. Using the new tables, create a stored procedure to allow the CEO to pull a count of chats handled by
+chat representative for a given time period, with a simple CALL statement which includes two dates
+
+This call statement will allow non-sql users to be able to pull up a table that will show them the performance of the chat representatives with a single line.
+
+DELIMITER //
+
+CREATE PROCEDURE chat_rep_performance(IN startdate DATE, IN enddate DATE)
+BEGIN
+SELECT
+	COUNT(support_session_id) AS sessions,
+        chat_rep_id
+FROM support_session
+WHERE DATE(created_at) BETWEEN startdate AND enddate
+GROUP BY chat_rep_id;
+
+END //
+
+DELIMITER ;
+
+CALL chat_rep_performance(startdate, enddate)
+	
 
 
 

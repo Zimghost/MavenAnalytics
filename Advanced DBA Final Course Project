@@ -185,6 +185,34 @@ END //
 DELIMITER ;
 
 CALL chat_rep_performance(startdate, enddate)
+
+7. Create two Views for the potential acquiring company; one detailing monthly order volume and revenue,
+the other showing monthly website traffic. Then create a new User, with access restricted to these Views
+
+This view summarizes the order volume and revenue and grouped by the month and year.
+
+CREATE VIEW monthly_order_vol_rev AS
+SELECT
+	YEAR(created_at) AS Year,
+	MONTH(created_at) AS Month,
+    COUNT(order_id) AS Number_of_Orders,
+    SUM(price_usd) AS Revenue
+FROM orders
+GROUP BY 1,2;
+
+This view summarizes the monthly website traffic and grouped by the month and year.
+
+CREATE VIEW monthly_website_traffic AS
+SELECT
+	YEAR(created_at) AS Year,
+	MONTH(created_at) AS Month,
+    COUNT(DISTINCT website_session_id) AS Sessions
+FROM website_sessions
+GROUP BY 1,2;
+
+I also created a new user that limited the role to just being able to show view and sel;ect for the mavenbearbuilders database.
+
+8. Top data security threats are SQL injections, weak autherization, buffers, ransomware, denial of service attacks, and privilege escalation. All of these allow hackers to either access confidential backend information, personal information, or cause problems accessing the data which can prevent productivity and efficiency while working. Ways to stop these are encrypting information, giving the least amount of access needed to perform a job, making sure passwords are strong and have a variety of characters while making them reset them after a certain period of time (90-120 days).
 	
 
 
